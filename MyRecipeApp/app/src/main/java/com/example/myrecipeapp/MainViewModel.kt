@@ -17,7 +17,7 @@ class MainViewModel : ViewModel() {
     private fun fetchCategories(){
         viewModelScope.launch {
             try {
-                val response = recipeServie.getCategories()
+                val response = recipeService.getCategories()
                 _categorieState.value = _categorieState.value.copy(
                     list = response.categories,
                     loading = false,
@@ -25,9 +25,9 @@ class MainViewModel : ViewModel() {
                 )
 
             }catch (e: Exception){
-                _categorieState.value.copy(
+                _categorieState.value = _categorieState.value.copy(
                     loading = false,
-                    error ="Error fetching Categories${e.message}"
+                    error ="Error fetching Categories: ${e.message}"
                 )
             }
         }
